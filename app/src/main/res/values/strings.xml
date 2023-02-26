@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PDF Generator</string>
+    <string-array name="pizza_menu">
+        <item>Select</item>
+        <item>Farmhouse</item>
+        <item>Margherita</item>
+    </string-array>
+</resources>
