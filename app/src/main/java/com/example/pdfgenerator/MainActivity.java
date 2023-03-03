@@ -10,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.widget.Button;
@@ -24,6 +25,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import android.Manifest;
+import android.widget.Switch;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     Bitmap bmpHeader, scaledbmpHeader, bmpFooter, scaledbmpFooter, bmpLogo, scaledbmpLogo;
     int pageHeight = 1122;
     int pageWidth = 793;
+
+    Switch stateSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         challanNumber = findViewById(R.id.challanNumber);
         date = findViewById(R.id.date);
         invoiceNumber = findViewById(R.id.invoiceNumber);
+        stateSwitch = findViewById(R.id.stateSwitch);
         bmpHeader = BitmapFactory.decodeResource(getResources(), R.drawable.header);
         scaledbmpHeader = Bitmap.createScaledBitmap(bmpHeader, pageWidth, 100, false);
         bmpFooter = BitmapFactory.decodeResource(getResources(), R.drawable.footer);
@@ -148,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                     || invoiceNumber.getText().toString().length() == 0){
                 Toast.makeText(MainActivity.this, "Please Fill All the Fields", Toast.LENGTH_LONG).show();
             } else {
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     PdfDocument myPdfDocument = new PdfDocument();
                     Paint myPaint = new Paint();
                     Paint titlePaint = new Paint();
@@ -297,11 +302,19 @@ public class MainActivity extends AppCompatActivity {
 
                     titlePaint.setTextSize(14);
                     myCanvas.drawText("SGST @ " + actualGst / 2 + " %", 575, 783, titlePaint);
-                    myCanvas.drawText(String.valueOf((amount * (actualGst / 2)) / 100), 689, 783, titlePaint);
                     myCanvas.drawText("CGST @ " + actualGst / 2 + " %", 575, 813, titlePaint);
-                    myCanvas.drawText(String.valueOf((amount * (actualGst / 2)) / 100), 689, 813, titlePaint);
                     myCanvas.drawText("IGST @ " + actualGst + " %", 576, 843, titlePaint);
-                    //myCanvas.drawText(String.valueOf((amount*actualGst)/100), 689, 843, titlePaint);
+
+                    //--------------------------------------------------
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        if (stateSwitch.isChecked()) {
+                            myCanvas.drawText(String.valueOf((amount * actualGst) / 100), 689, 843, titlePaint);
+                        } else {
+                            myCanvas.drawText(String.valueOf((amount * (actualGst / 2)) / 100), 689, 783, titlePaint);
+                            myCanvas.drawText(String.valueOf((amount * (actualGst / 2)) / 100), 689, 813, titlePaint);
+                        }
+                    }
+                    //--------------------------------------------------
 
                     myCanvas.drawLine(18f, 881, pageWidth - 18, 881, myPaint);
 
