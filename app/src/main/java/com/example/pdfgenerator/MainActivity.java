@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import android.Manifest;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -129,6 +130,24 @@ public class MainActivity extends AppCompatActivity {
 
     private void createPDF(){
         genPdfButton.setOnClickListener((view) -> {
+            if(gstPercentage.getText().toString().length() == 0
+                    || rate.getText().toString().length() == 0
+                    || quantity.getText().toString().length() == 0
+                    || material.getText().toString().length() == 0
+                    || hsnCode.getText().toString().length() == 0
+                    || customersContactNumber.getText().toString().length() == 0
+                    || customersPanNumber.getText().toString().length() == 0
+                    || customersAddress.getText().toString().length() == 0
+                    || numberOfBags.getText().toString().length() == 0
+                    || customersGstNumber.getText().toString().length() == 0
+                    || vehicleNumber.getText().toString().length() == 0
+                    || lrNumber.getText().toString().length() == 0
+                    || transport.getText().toString().length() == 0
+                    || challanNumber.getText().toString().length() == 0
+                    || date.getText().toString().length() == 0
+                    || invoiceNumber.getText().toString().length() == 0){
+                Toast.makeText(MainActivity.this, "Please Fill All the Fields", Toast.LENGTH_LONG).show();
+            } else {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
                     PdfDocument myPdfDocument = new PdfDocument();
                     Paint myPaint = new Paint();
@@ -154,16 +173,16 @@ public class MainActivity extends AppCompatActivity {
 
                     myPaint.setStyle(Paint.Style.STROKE);
                     myPaint.setStrokeWidth(1.3f);
-                    myCanvas.drawRect(18, 229, pageWidth-18, 1010, myPaint);
-                    myCanvas.drawLine(18f, 251.5f,  pageWidth-18, 251.5f, myPaint);
+                    myCanvas.drawRect(18, 229, pageWidth - 18, 1010, myPaint);
+                    myCanvas.drawLine(18f, 251.5f, pageWidth - 18, 251.5f, myPaint);
 
                     titlePaint.setTextAlign(Paint.Align.CENTER);
                     titlePaint.setTextSize(20);
-                    myCanvas.drawText("DEBIT", pageWidth/4, 247, titlePaint);
+                    myCanvas.drawText("DEBIT", pageWidth / 4, 247, titlePaint);
 
                     titlePaint.setTextAlign(Paint.Align.CENTER);
                     titlePaint.setTextSize(20);
-                    myCanvas.drawText("TAX INVOICE", pageWidth/2, 247, titlePaint);
+                    myCanvas.drawText("TAX INVOICE", pageWidth / 2, 247, titlePaint);
 
                     titlePaint.setTextAlign(Paint.Align.CENTER);
                     titlePaint.setTextSize(20);
@@ -175,34 +194,34 @@ public class MainActivity extends AppCompatActivity {
 
                     titlePaint.setTextSize(13);
                     myCanvas.drawText(customersAddress.getText().toString(), 32, 285, titlePaint);
-                    myCanvas.drawText("Customer’s GST No: "+ customersGstNumber.getText().toString(), 32, 330, titlePaint);
-                    myCanvas.drawText("Customer’s PAN No: "+ customersPanNumber.getText().toString(), 32, 345, titlePaint);
-                    myCanvas.drawText("Customer's Mob No: "+ customersContactNumber.getText().toString(), 32, 360, titlePaint);
+                    myCanvas.drawText("Customer’s GST No: " + customersGstNumber.getText().toString(), 32, 330, titlePaint);
+                    myCanvas.drawText("Customer’s PAN No: " + customersPanNumber.getText().toString(), 32, 345, titlePaint);
+                    myCanvas.drawText("Customer's Mob No: " + customersContactNumber.getText().toString(), 32, 360, titlePaint);
 
                     myPaint.setStyle(Paint.Style.STROKE);
                     myPaint.setStrokeWidth(1.3f);
-                    myCanvas.drawLine(570, 251.5f,  570, 367.5f, myPaint);
-                    myCanvas.drawLine(18f, 315,  570, 315, myPaint);
+                    myCanvas.drawLine(570, 251.5f, 570, 367.5f, myPaint);
+                    myCanvas.drawLine(18f, 315, 570, 315, myPaint);
 
                     titlePaint.setTextAlign(Paint.Align.LEFT);
                     titlePaint.setTextSize(13);
                     myCanvas.drawText("Date", 580, 270, titlePaint);
-                    myCanvas.drawText(": "+ date.getText().toString(), 660, 270, titlePaint);
+                    myCanvas.drawText(": " + date.getText().toString(), 660, 270, titlePaint);
                     myCanvas.drawText("Invoice No", 580, 285, titlePaint);
-                    myCanvas.drawText(": "+ invoiceNumber.getText().toString(), 660, 285, titlePaint);
+                    myCanvas.drawText(": " + invoiceNumber.getText().toString(), 660, 285, titlePaint);
                     myCanvas.drawText("Challan No", 580, 300, titlePaint);
-                    myCanvas.drawText(": "+ challanNumber.getText().toString(), 660, 300, titlePaint);
+                    myCanvas.drawText(": " + challanNumber.getText().toString(), 660, 300, titlePaint);
                     myCanvas.drawText("Transport", 580, 315, titlePaint);
-                    myCanvas.drawText(": "+ transport.getText().toString(), 660, 315, titlePaint);
+                    myCanvas.drawText(": " + transport.getText().toString(), 660, 315, titlePaint);
                     myCanvas.drawText("L.R. No", 580, 330, titlePaint);
-                    myCanvas.drawText(": "+ lrNumber.getText().toString(), 660, 330, titlePaint);
+                    myCanvas.drawText(": " + lrNumber.getText().toString(), 660, 330, titlePaint);
                     myCanvas.drawText("Vehicle No", 580, 345, titlePaint);
-                    myCanvas.drawText(": "+ vehicleNumber.getText().toString(), 660, 345, titlePaint);
+                    myCanvas.drawText(": " + vehicleNumber.getText().toString(), 660, 345, titlePaint);
                     myCanvas.drawText("No of Bags", 580, 360, titlePaint);
-                    myCanvas.drawText(": "+ numberOfBags.getText().toString(), 660, 360, titlePaint);
+                    myCanvas.drawText(": " + numberOfBags.getText().toString(), 660, 360, titlePaint);
 
-                    myCanvas.drawLine(18f, 367.5f,  pageWidth-18, 367.5f, myPaint);
-                    myCanvas.drawLine(18f, 389.5f,  pageWidth-18, 389.5f, myPaint);
+                    myCanvas.drawLine(18f, 367.5f, pageWidth - 18, 367.5f, myPaint);
+                    myCanvas.drawLine(18f, 389.5f, pageWidth - 18, 389.5f, myPaint);
 
                     titlePaint.setTextSize(12.5f);
                     myCanvas.drawText("Sr.No", 30, 383, titlePaint);
@@ -213,8 +232,8 @@ public class MainActivity extends AppCompatActivity {
                     myCanvas.drawText("GST %", 635, 383, titlePaint);
                     myCanvas.drawText("Amount", 700, 383, titlePaint);
 
-                    myCanvas.drawLine(18f, 600,  pageWidth-18, 600, myPaint);
-                    myCanvas.drawLine(18f, 622,  pageWidth-18, 622, myPaint);
+                    myCanvas.drawLine(18f, 600, pageWidth - 18, 600, myPaint);
+                    myCanvas.drawLine(18f, 622, pageWidth - 18, 622, myPaint);
 
                     myCanvas.drawText("1.", 42, 410, titlePaint);
                     titlePaint.setTextSize(14);
@@ -222,20 +241,20 @@ public class MainActivity extends AppCompatActivity {
 
                     myPaint.setStyle(Paint.Style.STROKE);
                     myPaint.setStrokeWidth(1.3f);
-                    myCanvas.drawLine(70, 367.5f,  70, 600, myPaint);
-                    myCanvas.drawLine(436, 367.5f,  436, 600, myPaint);
-                    myCanvas.drawLine(502, 367.5f,  502, 600, myPaint);
-                    myCanvas.drawLine(564, 367.5f,  564, 881, myPaint);
-                    myCanvas.drawLine(625, 367.5f,  625, 600, myPaint);
-                    myCanvas.drawLine(679, 367.5f,  679, 881, myPaint);
+                    myCanvas.drawLine(70, 367.5f, 70, 600, myPaint);
+                    myCanvas.drawLine(436, 367.5f, 436, 600, myPaint);
+                    myCanvas.drawLine(502, 367.5f, 502, 600, myPaint);
+                    myCanvas.drawLine(564, 367.5f, 564, 881, myPaint);
+                    myCanvas.drawLine(625, 367.5f, 625, 600, myPaint);
+                    myCanvas.drawLine(679, 367.5f, 679, 881, myPaint);
 
                     titlePaint.setTextAlign(Paint.Align.LEFT);
                     titlePaint.setTextSize(12.5f);
                     myCanvas.drawText(material.getText().toString(), 80, 410, titlePaint);
                     myCanvas.drawText(hsnCode.getText().toString(), 446, 410, titlePaint);
-                    myCanvas.drawText(quantity.getText().toString()+" Kg", 512, 410, titlePaint);
-                    myCanvas.drawText(rate.getText().toString()+"/Kg", 574, 410, titlePaint);
-                    myCanvas.drawText(gstPercentage.getText().toString()+"%", 635, 410, titlePaint);
+                    myCanvas.drawText(quantity.getText().toString() + " Kg", 512, 410, titlePaint);
+                    myCanvas.drawText(rate.getText().toString() + "/Kg", 574, 410, titlePaint);
+                    myCanvas.drawText(gstPercentage.getText().toString() + "%", 635, 410, titlePaint);
 
                     float amount = 0;
                     amount = Float.parseFloat(quantity.getText().toString()) * Float.parseFloat(rate.getText().toString());
@@ -261,9 +280,9 @@ public class MainActivity extends AppCompatActivity {
                     myCanvas.drawText("MICR CODE", 32, 758, titlePaint);
                     myCanvas.drawText(": 411020014", 145, 758, titlePaint);
 
-                    myCanvas.drawLine(18f, 762,  pageWidth-18, 762, myPaint);
-                    myCanvas.drawLine(564, 793,  pageWidth-18, 793, myPaint);
-                    myCanvas.drawLine(564, 824,  pageWidth-18, 824, myPaint);
+                    myCanvas.drawLine(18f, 762, pageWidth - 18, 762, myPaint);
+                    myCanvas.drawLine(564, 793, pageWidth - 18, 793, myPaint);
+                    myCanvas.drawLine(564, 824, pageWidth - 18, 824, myPaint);
 
                     titlePaint.setTextSize(13);
                     myCanvas.drawText("Terms:", 32, 780, titlePaint);
@@ -272,24 +291,24 @@ public class MainActivity extends AppCompatActivity {
                     myCanvas.drawText("* All Transactions Subject to Pune Jurisdiction only. E.&.O.E.", 24, 825, titlePaint);
                     myCanvas.drawText("* The Seller is Not Responsible for Any Damage that happens during Transit.", 24, 840, titlePaint);
 
-                    myCanvas.drawLine(18f, 855,  pageWidth-18, 855, myPaint);
+                    myCanvas.drawLine(18f, 855, pageWidth - 18, 855, myPaint);
 
                     float actualGst = Float.parseFloat(gstPercentage.getText().toString());
 
                     titlePaint.setTextSize(14);
-                    myCanvas.drawText("SGST @ "+actualGst/2+" %", 575, 783, titlePaint);
-                    myCanvas.drawText(String.valueOf((amount*(actualGst/2))/100), 689, 783, titlePaint);
-                    myCanvas.drawText("CGST @ "+actualGst/2+" %", 575, 813, titlePaint);
-                    myCanvas.drawText(String.valueOf((amount*(actualGst/2))/100), 689, 813, titlePaint);
-                    myCanvas.drawText("IGST @ "+actualGst+" %", 576, 843, titlePaint);
+                    myCanvas.drawText("SGST @ " + actualGst / 2 + " %", 575, 783, titlePaint);
+                    myCanvas.drawText(String.valueOf((amount * (actualGst / 2)) / 100), 689, 783, titlePaint);
+                    myCanvas.drawText("CGST @ " + actualGst / 2 + " %", 575, 813, titlePaint);
+                    myCanvas.drawText(String.valueOf((amount * (actualGst / 2)) / 100), 689, 813, titlePaint);
+                    myCanvas.drawText("IGST @ " + actualGst + " %", 576, 843, titlePaint);
                     //myCanvas.drawText(String.valueOf((amount*actualGst)/100), 689, 843, titlePaint);
 
-                    myCanvas.drawLine(18f, 881,  pageWidth-18, 881, myPaint);
+                    myCanvas.drawLine(18f, 881, pageWidth - 18, 881, myPaint);
 
                     float grandTotal = 0;
                     float totalGst = 0;
-                    totalGst = (amount*actualGst)/100;
-                    grandTotal = amount+totalGst;
+                    totalGst = (amount * actualGst) / 100;
+                    grandTotal = amount + totalGst;
 
                     myCanvas.drawText("Amount(in words):", 32, 897, titlePaint);
                     myCanvas.drawText(convertToIndianCurrency(String.valueOf(grandTotal)), 31, 914, titlePaint);
@@ -298,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
                     myCanvas.drawText("Grand Total", 584, 873, titlePaint);
                     myCanvas.drawText(String.valueOf(grandTotal), 689, 873, titlePaint);
 
-                    myCanvas.drawLine(18f, 925,  pageWidth-18, 925, myPaint);
+                    myCanvas.drawLine(18f, 925, pageWidth - 18, 925, myPaint);
 
                     titlePaint.setTextSize(20);
                     myCanvas.drawText("For PGS ENTERPRISES", 555, 947, titlePaint);
@@ -316,6 +335,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     myPdfDocument.close();
                 }
+            }
         });
     }
 }
