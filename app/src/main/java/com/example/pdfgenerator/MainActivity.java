@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private int EXTERNAL_STORAGE_PERMISSION_CODE = 23;
     Button genPdfButton;
     EditText gstPercentage, rate, quantity, material, hsnCode, customersContactNumber, customersPanNumber, customersAddress, numberOfBags, customersGstNumber,
             vehicleNumber, lrNumber, transport, challanNumber, date, invoiceNumber;
@@ -340,7 +341,20 @@ public class MainActivity extends AppCompatActivity {
 
                     myPdfDocument.finishPage(myPage1);
 
-                    File file = new File(Environment.getExternalStorageDirectory(), "/hello.pdf");
+                    // Requesting Permission to access External Storage
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            EXTERNAL_STORAGE_PERMISSION_CODE);
+
+                    // getExternalStoragePublicDirectory() represents root of external storage, we are using DOWNLOADS
+                    // We can use following directories: MUSIC, PODCASTS, ALARMS, RINGTONES, NOTIFICATIONS, PICTURES, MOVIES
+                    //Below Line for Android 13+
+                    File folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+
+                    // Storing the data in file with name as Tax_Invoice.pdf
+                    File file = new File(folder, "Tax_Invoice.pdf");
+
+                    //Below Line for Android 10-
+                    //File file = new File(Environment.getExternalStorageDirectory(), "/hello.pdf");
                     try {
                         myPdfDocument.writeTo(new FileOutputStream(file));
                     } catch (IOException e) {
